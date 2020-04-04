@@ -7,14 +7,49 @@ var button = d3.select('#filter-btn');
 button.on("click", function()
 {
 
-    // select input element
-    var inputElement = d3.select("#datetime");
+    // function for getting the value of an input
+    function getInput(id)
+    {
+        var idString = "#" + id;
+        var inputElement = d3.select(idString);
+        var inputValue = inputElement.property("value");
+        return inputValue;
+    }
 
-    // get the value property of input element
-    var inputValue = inputElement.property("value");
+    // get all input values
+    var datetimeInput = getInput("datetime");
+    var cityInput = getInput("city");
+    var stateInput = getInput("state");
+    var countryInput = getInput("country");
+    var shapeInput = getInput("shape");
 
-    // filter the data by date provided
-    var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
+    // filter the data
+    var filteredData = tableData
+
+    if (datetimeInput)
+    {
+        filteredData = filteredData.filter(sighting => sighting.datetime === datetimeInput);
+    }
+    if (cityInput)
+    {
+        cityInputLower = cityInput.toLowerCase();
+        filteredData = filteredData.filter(sighting => sighting.city === cityInputLower);
+    }
+    if (stateInput)
+    {
+        stateInputLower = stateInput.toLowerCase();
+        filteredData = filteredData.filter(sighting => sighting.state === stateInputLower);
+    }
+    if (countryInput)
+    {
+        countryInputLower = countryInput.toLowerCase();
+        filteredData = filteredData.filter(sighting => sighting.country === countryInputLower);
+    }
+    if (shapeInput)
+    {
+        shapeInputLower = shapeInput.toLowerCase();
+        filteredData = filteredData.filter(sighting => sighting.shape === shapeInputLower);
+    }
 
     // function to get data and create a text node from it
     function getTextNode(i, reference)
