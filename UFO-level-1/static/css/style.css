@@ -224,3 +224,6 @@
     }
   }
   
+  table.capitalize {
+    text-transform: uppercase;
+  }
